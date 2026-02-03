@@ -23,7 +23,7 @@ public class PersonneService implements InterfaceGblobal<Personne> {
         }
     }
 
-    @Override
+
     public void add2(Personne p) {
         String req = "INSERT INTO `Personne`(`nom`, `prenom`, `age`, `Adresse`) VALUES (?,?,?,?)";
         try {
