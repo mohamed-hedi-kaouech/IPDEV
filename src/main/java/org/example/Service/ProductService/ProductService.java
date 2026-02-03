@@ -1,10 +1,14 @@
-package org.example.Service;
+package org.example.Service.ProductService;
 import org.example.Interfaces.InterfaceGblobal;
 import org.example.Model.Personne;
 import org.example.Model.Product.ClassProduct.Product;
+import org.example.Model.Product.EnumProduct.ProductCategory;
 import org.example.Utils.MaConnexion;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductService implements InterfaceGblobal<Product> {
 
@@ -12,7 +16,7 @@ public class ProductService implements InterfaceGblobal<Product> {
     @Override
     public void add(Product p) {
         String req = "INSERT INTO `product`(`category`, `price`, `description`, `createdAt`) " +
-                "VALUES ('"+p.getCategory()+"','"+p.getPrice()+"',"+p.getDescription()+",'"+p.getCreatedAt()+"')";
+                "VALUES ('"+p.getCategory()+"','"+p.getPrice()+"','"+p.getDescription()+"','"+p.getCreatedAt()+"')";
         try {
             Statement st = cnx.createStatement();
             st.executeUpdate(req);
@@ -22,16 +26,15 @@ public class ProductService implements InterfaceGblobal<Product> {
         }
     }
 
-    @Override
-    public void add2(Personne p) {
+    public void add2(Product p) {
         String req = "INSERT INTO `product`(`category`, `price`, `description`, `createdAt`)" +
                 " VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = cnx.prepareStatement(req);
-            ps.setString(1, p.getNom());
-            ps.setString(2, p.getPrenom());
-            ps.setInt(3, p.getAge());
-            ps.setString(4, p.getAdresse());
+            ps.setString(1, p.getCategory().name());
+            ps.setDouble(2, p.getPrice());
+            ps.setString(3, p.getDescription());
+            ps.setTimestamp(4, Timestamp.valueOf(p.getCreatedAt()));
             ps.executeUpdate();
             System.out.println("Personne ajoutée avec succes 2");
         } catch (SQLException e) {
@@ -41,38 +44,65 @@ public class ProductService implements InterfaceGblobal<Product> {
 
 
     @Override
-    public void delete(Personne personne) {
-
+    public void delete(Product p) {
+        String req = "DELETE FROM `product` WHERE productId = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setInt(1, p.getProductId());
+            ps.executeUpdate();
+            System.out.println("Personne Supprimer avec succes");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
-    public void update(Personne personne) {
+    public void update(Product p) {
+        String req = "UPDATE `product` SET category = ?, price=?, description = ?, createdAt = ? WHERE productId = ?";
+        try {
+            PreparedStatement ps = cnx.prepareStatement(req);
+            ps.setString(1, p.getCategory().name());
+            ps.setDouble(2, p.getPrice());
+            ps.setString(3, p.getDescription());
+            ps.setTimestamp(4, Timestamp.valueOf(p.getCreatedAt()));
+            ps.setInt(5, p.getProductId());
+            ps.executeUpdate();
+            System.out.println("Personne ajoutée avec succes 2");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
 
     @Override
-//    public List<Personne> getAll() {
-//        List<Personne> personnes = new ArrayList<>();
-//        String req = "SELECT * FROM personne";
-//        try {
-//            Statement st = cnx.createStatement();
-//            ResultSet res = st.executeQuery(req);
-//            while (res.next()){
-//                Personne p =new Personne();
-//                p.setId(res.getInt("id"));
-//                p.setNom(res.getString("nom"));
-//                p.setPrenom(res.getString("prenom"));
-//                p.setAge(res.getInt("age"));
-//                p.setAdresse(res.getString("Adresse"));
-//
-//                personnes.add(p);
-//            }
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return personnes;
-//    }
+    public List<Product> getAll() {
+        List<Product> products = new ArrayList<>();
+        String req = "SELECT * FROM `product`";
+        try {
+            Statement st = cnx.createStatement();
+            ResultSet res = st.executeQuery(req);
+            while (res.next()){
+                Product p =new Product();
+                p.setProductId(res.getInt(1));
+                p.setCategory(ProductCategory.valueOf(res.getString(2)));
+                p.setPrice(res.getDouble(3));
+                p.setDescription(res.getString(4));
+                Timestamp ts = res.getTimestamp(5);
+                if (ts != null) {
+                    p.setCreatedAt(ts.toLocalDateTime());
+                }
+                products.add(p);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return products;
+    }
+
+
+
+
 
 }

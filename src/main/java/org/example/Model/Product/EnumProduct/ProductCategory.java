@@ -1,4 +1,4 @@
-package org.example.Model.Product;
+package org.example.Model.Product.EnumProduct;
 
 public enum ProductCategory {
     // ===== Comptes bancaires =====

@@ -1,19 +1,18 @@
-package org.example.Model.Product;
+package org.example.Model.Product.ClassProduct;
 
+import org.example.Model.Product.EnumProduct.ProductCategory;
+
+import java.sql.Date;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Product {
 
     //Attributes
     private int productId;
-    private String name;
     private ProductCategory category;
     private Double price;
     private String description;
     private LocalDateTime createdAt;
-    private List<ProductSubscription> subscriptions = new ArrayList<>();
 
 
     //Constructors
@@ -21,11 +20,18 @@ public class Product {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Product(int productId, String name, ProductCategory category, String description) {
-        this.productId = productId;
-        this.name = name;
+    public Product( ProductCategory category, String description, Double price) {
         this.category = category;
         this.description = description;
+        this.createdAt = LocalDateTime.now();
+        this.price = price;
+    }
+    public Product(int productId, ProductCategory category, String description, Double price) {
+        this.productId = productId;
+        this.category = category;
+        this.description = description;
+        this.createdAt = LocalDateTime.now();
+        this.price = price;
     }
 
 
@@ -37,14 +43,6 @@ public class Product {
 
     public void setProductId(int productId) {
         this.productId = productId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public ProductCategory getCategory() {
@@ -79,26 +77,16 @@ public class Product {
         this.price = price;
     }
 
-    public List<ProductSubscription> getSubscriptions() {
-        return subscriptions;
-    }
-
-    public void setSubscriptions(List<ProductSubscription> subscriptions) {
-        this.subscriptions = subscriptions;
-    }
-    //Methods
-
-
     @Override
     public String toString() {
         return "Product{" +
                 "productId=" + productId +
-                ", name='" + name + '\'' +
                 ", category=" + category +
                 ", price=" + price +
                 ", description='" + description + '\'' +
                 ", createdAt=" + createdAt +
-                ", subscriptions=" + subscriptions +
                 '}';
     }
+
+
 }
