@@ -1,4 +1,4 @@
-package example.Interfaces;
+package org.example.Interfaces;
 
 import org.example.Model.Personne;
 

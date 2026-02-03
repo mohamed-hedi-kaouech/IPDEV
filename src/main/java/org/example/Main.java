@@ -1,4 +1,4 @@
-package example;
+package org.example;
 
 import org.example.Interfaces.InterfaceGblobal;
 import org.example.Model.Personne;
@@ -8,7 +8,7 @@ import org.example.Service.PersonneService;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Personne p = new Personne(26, "Mouldi", "kaouech", "4 Nahj Tribunal Mhamdia");
+        Personne p = new Personne(26, "mohamed hedi", "kaouech", "4 Nahj Tribunal Mhamdia");
         InterfaceGblobal<Personne> ps = new PersonneService();
 //        ps.add2(p);
         System.out.println(ps.getAll());

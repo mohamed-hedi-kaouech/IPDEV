@@ -1,4 +1,4 @@
-package example.Service;
+package org.example.Service;
 
 import org.example.Interfaces.InterfaceGblobal;
 import org.example.Model.Personne;

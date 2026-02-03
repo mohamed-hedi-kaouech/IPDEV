@@ -1,4 +1,4 @@
-package example.Model;
+package org.example.Model;
 
 public class Personne {
     //attributs
