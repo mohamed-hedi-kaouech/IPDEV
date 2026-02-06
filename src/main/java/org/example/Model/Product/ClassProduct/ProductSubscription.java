@@ -5,29 +5,80 @@ import org.example.Model.Product.EnumProduct.SubscriptionType;
 import org.example.Model.User.Client;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ProductSubscription {
 
     // Attribute
     private int subscriptionId;
-    private Client client;
-    private Product product;
+    private int client;
+    private int product;
     private SubscriptionType type;
-    private LocalDate subscriptionDate;
-    private LocalDate expirationDate;
+    private LocalDateTime subscriptionDate;
+    private LocalDateTime expirationDate;
     private SubscriptionStatus status;
 
     //Constructors
     public ProductSubscription() {
-        this.subscriptionDate = LocalDate.now();
+        this.subscriptionDate = LocalDate.now().atStartOfDay();
         this.status = SubscriptionStatus.ACTIVE;
     }
 
-    public ProductSubscription(Client client, Product product, SubscriptionType type) {
+    public ProductSubscription(int client, int product, SubscriptionType type) {
         this.client = client;
         this.product = product;
         this.type = type;
-        this.subscriptionDate = LocalDate.now();
+        this.subscriptionDate = LocalDateTime.now();
+        switch (type) {
+            case MONTHLY:
+                this.expirationDate = subscriptionDate.plusMonths(1);
+                break;
+
+            case ANNUAL:
+                this.expirationDate = subscriptionDate.plusYears(1);
+                break;
+
+            case TRANSACTION:
+                this.expirationDate = subscriptionDate.plusDays(1);
+                break;
+
+            case ONE_TIME:
+                this.expirationDate = subscriptionDate;
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown subscription type");
+        }
+
+        this.status = SubscriptionStatus.ACTIVE;
+    }
+    public ProductSubscription(int subscriptionId,int client, int product, SubscriptionType type) {
+        this.subscriptionId = subscriptionId;
+        this.client = client;
+        this.product = product;
+        this.type = type;
+        this.subscriptionDate = LocalDateTime.now();
+        switch (type) {
+            case MONTHLY:
+                this.expirationDate = subscriptionDate.plusMonths(1);
+                break;
+
+            case ANNUAL:
+                this.expirationDate = subscriptionDate.plusYears(1);
+                break;
+
+            case TRANSACTION:
+                this.expirationDate = subscriptionDate.plusDays(1);
+                break;
+
+            case ONE_TIME:
+                this.expirationDate = subscriptionDate;
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unknown subscription type");
+        }
+
         this.status = SubscriptionStatus.ACTIVE;
     }
 
@@ -42,19 +93,19 @@ public class ProductSubscription {
         this.subscriptionId = subscriptionId;
     }
 
-    public Client getClient() {
+    public int getClient() {
         return client;
     }
 
-    public void setClient(Client client) {
+    public void setClient(int client) {
         this.client = client;
     }
 
-    public Product getProduct() {
+    public int getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(int product) {
         this.product = product;
     }
 
@@ -66,19 +117,19 @@ public class ProductSubscription {
         this.type = type;
     }
 
-    public LocalDate getSubscriptionDate() {
+    public LocalDateTime getSubscriptionDate() {
         return subscriptionDate;
     }
 
-    public void setSubscriptionDate(LocalDate subscriptionDate) {
+    public void setSubscriptionDate(LocalDateTime subscriptionDate) {
         this.subscriptionDate = subscriptionDate;
     }
 
-    public LocalDate getExpirationDate() {
+    public LocalDateTime getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
+    public void setExpirationDate(LocalDateTime expirationDate) {
         this.expirationDate = expirationDate;
     }
 

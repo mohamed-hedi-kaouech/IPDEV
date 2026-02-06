@@ -36,7 +36,7 @@ public class ProductService implements InterfaceGblobal<Product> {
             ps.setString(3, p.getDescription());
             ps.setTimestamp(4, Timestamp.valueOf(p.getCreatedAt()));
             ps.executeUpdate();
-            System.out.println("Personne ajoutée avec succes 2");
+            System.out.println("Produit ajoutée avec succes 2");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -50,7 +50,7 @@ public class ProductService implements InterfaceGblobal<Product> {
             PreparedStatement ps = cnx.prepareStatement(req);
             ps.setInt(1, p.getProductId());
             ps.executeUpdate();
-            System.out.println("Personne Supprimer avec succes");
+            System.out.println("Produit Supprimer avec succes");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +67,7 @@ public class ProductService implements InterfaceGblobal<Product> {
             ps.setTimestamp(4, Timestamp.valueOf(p.getCreatedAt()));
             ps.setInt(5, p.getProductId());
             ps.executeUpdate();
-            System.out.println("Personne ajoutée avec succes 2");
+            System.out.println("Produit ajoutée avec succes 2");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -88,10 +88,7 @@ public class ProductService implements InterfaceGblobal<Product> {
                 p.setCategory(ProductCategory.valueOf(res.getString(2)));
                 p.setPrice(res.getDouble(3));
                 p.setDescription(res.getString(4));
-                Timestamp ts = res.getTimestamp(5);
-                if (ts != null) {
-                    p.setCreatedAt(ts.toLocalDateTime());
-                }
+                p.setCreatedAt(res.getTimestamp(5).toLocalDateTime());
                 products.add(p);
             }
 
