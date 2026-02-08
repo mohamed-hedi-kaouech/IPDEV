@@ -1,9 +1,11 @@
 package org.example;
 
 import org.example.Interfaces.InterfaceGblobal;
+import org.example.Model.Loan.LoanClass.Loan;
 import org.example.Model.Personne;
 import org.example.Model.Product.ClassProduct.Product;
 import org.example.Model.Product.EnumProduct.ProductCategory;
+import org.example.Service.LoanService.LoanService;
 import org.example.Service.PersonneService;
 import org.example.Service.ProductService.ProductService;
 
@@ -20,6 +22,19 @@ public class Main {
 //        ps.update(p3);
 //        System.out.println(ps.getAll());
 //        ps.delete(p);
+
+        Loan l = new Loan(12.500,4,3.5,2000);
+        LoanService ls = new LoanService();
+        ls.add(l);
+        Loan l2 = new Loan(15.500,12,5,3000);
+        ls.add(l2);
+        Loan l3 = new Loan(2,19000,12,5,3000);
+        ls.update(l3);
+        System.out.println(ls.getAll());
+        ls.delete(l2);
+
+
+
 
 
     }
