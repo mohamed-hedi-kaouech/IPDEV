@@ -26,6 +26,7 @@ public class ProductService implements InterfaceGblobal<Product> {
         }
     }
 
+    
     public void add2(Product p) {
         String req = "INSERT INTO `product`(`category`, `price`, `description`, `createdAt`)" +
                 " VALUES (?,?,?,?)";
