@@ -1,10 +1,12 @@
 package org.example;
 
 import org.example.Interfaces.InterfaceGblobal;
+import org.example.Model.Budget.Categorie;
 import org.example.Model.Loan.LoanClass.Loan;
 import org.example.Model.Personne;
 import org.example.Model.Product.ClassProduct.Product;
 import org.example.Model.Product.EnumProduct.ProductCategory;
+import org.example.Service.BudgetService.BudgetService;
 import org.example.Service.LoanService.LoanService;
 import org.example.Model.Product.EnumProduct.SubscriptionStatus;
 import org.example.Model.Product.EnumProduct.SubscriptionType;
@@ -46,16 +48,24 @@ public class Main {
 
 
 
-        Loan l = new Loan(12.500,4,3.5,2000);
-        LoanService ls = new LoanService();
-        ls.add(l);
-        Loan l2 = new Loan(15.500,12,5,3000);
-        ls.add(l2);
-        Loan l3 = new Loan(2,19000,12,5,3000);
-        ls.update(l3);
-        System.out.println(ls.getAll());
-        ls.delete(l2);
+//        Loan l = new Loan(12.500,4,3.5,2000);
+//        LoanService ls = new LoanService();
+//        ls.add(l);
+//        Loan l2 = new Loan(15.500,12,5,3000);
+//        ls.add(l2);
+//        Loan l3 = new Loan(2,19000,12,5,3000);
+//        ls.update(l3);
+//        System.out.println(ls.getAll());
+//        ls.delete(l2);
 
+        Categorie c = new Categorie("Alimention",2000,600);
+        BudgetService bs = new BudgetService();
+        //bs.add(c);
+        c.setIdCategorie(2);
+        //bs.delete(c);
+        c.setNomCategorie("Education");
+        bs.update(c);
+        System.out.println(bs.getAll());
 
 
 
